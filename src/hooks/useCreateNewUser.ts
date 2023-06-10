@@ -1,4 +1,3 @@
-import {create} from 'react-test-renderer';
 import {account} from '../../server';
 import {useState} from 'react';
 
@@ -12,7 +11,7 @@ export default async function useCreateNewUser({
   password,
 }: CreateUserProps) {
   const [user, setUser] = useState({});
-  const [error, setError] = useState('');
+  const [error, setError] = useState<unknown | string>('');
   const [loading, setLoading] = useState(false);
 
   try {
