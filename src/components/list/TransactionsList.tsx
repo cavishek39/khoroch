@@ -4,6 +4,7 @@ import {getDocument} from '../../../server';
 import {Query} from 'appwrite';
 import {useEffect, useState} from 'react';
 import {Transaction} from '../../types/transaction';
+import FloatingButton from '../FloatingButton';
 
 export default function TransactionsList() {
   // TODO: Query transactions from the database
@@ -19,34 +20,37 @@ export default function TransactionsList() {
   }, []);
 
   return (
-    <FlatList
-      data={transactions}
-      renderItem={({item}) => <TransactionCard transaction={item} />}
-      keyExtractor={(item, index) =>
-        item.id + 'transaction-list' + index?.toString()
-      }
-      ItemSeparatorComponent={() => <View style={{height: 16}} />}
-      ListHeaderComponent={() => (
-        <View>
-          <Text style={{fontSize: 30, fontWeight: 'bold', paddingBottom: 8}}>
-            Transactions
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 16, fontWeight: 'bold', paddingRight: 10}}>
-              Today
+    <>
+      <FlatList
+        data={transactions}
+        renderItem={({item}) => <TransactionCard transaction={item} />}
+        keyExtractor={(item, index) =>
+          item.id + 'transaction-list' + index?.toString()
+        }
+        ItemSeparatorComponent={() => <View style={{height: 16}} />}
+        ListHeaderComponent={() => (
+          <View>
+            <Text style={{fontSize: 30, fontWeight: 'bold', paddingBottom: 8}}>
+              Transactions
             </Text>
-            <Text style={{fontSize: 14, fontWeight: '500'}}>
-              {new Date()?.toDateString()}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{fontSize: 16, fontWeight: 'bold', paddingRight: 10}}>
+                Today
+              </Text>
+              <Text style={{fontSize: 14, fontWeight: '500'}}>
+                {new Date()?.toDateString()}
+              </Text>
+            </View>
           </View>
-        </View>
-      )}
-      ListHeaderComponentStyle={{paddingBottom: 12}}
-    />
+        )}
+        ListHeaderComponentStyle={{paddingBottom: 12}}
+      />
+    </>
   );
 }
 

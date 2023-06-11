@@ -4,10 +4,14 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  View,
   useColorScheme,
 } from 'react-native';
 
 import HomeScreen from './src/screens/HomeScreen';
+import FloatingButton from './src/components/FloatingButton';
+import {SheetProvider, SheetManager} from 'react-native-actions-sheet';
+import './src/screens/sheet';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,21 +21,36 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        nestedScrollEnabled
-        style={{
-          // flex: 1,
-          backgroundColor: 'white',
-        }}>
-        <HomeScreen />
-      </ScrollView>
-    </SafeAreaView>
+    <SheetProvider>
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <ScrollView
+          // contentInsetAdjustmentBehavior="automatic"
+          nestedScrollEnabled
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+          }}>
+          <HomeScreen />
+        </ScrollView>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 30,
+            right: 20,
+          }}>
+          <FloatingButton
+            onPress={() => {
+              console.log('pressed');
+              SheetManager.show('add-new-expense');
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    </SheetProvider>
   );
 }
 
