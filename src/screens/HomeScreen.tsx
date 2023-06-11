@@ -4,6 +4,7 @@ import ScreenWrapper from '../components/primitive/ScreenWrapper';
 import Card from '../components/primitive/Card';
 import TransactionCard from '../components/TransactionCard';
 import TransactionsList from '../components/list/TransactionsList';
+import {createDocument} from '../../server';
 
 export default function HomeScreen() {
   return (

@@ -1,8 +1,22 @@
 import {FlatList, Text, View} from 'react-native';
 import TransactionCard from '../TransactionCard';
+import {getDocument} from '../../../server';
+import {Query} from 'appwrite';
+import {useEffect, useState} from 'react';
+import {Transaction} from '../../types/transaction';
 
 export default function TransactionsList() {
   // TODO: Query transactions from the database
+
+  const [transactions, setTransactions] = useState<Transaction[] | undefined>(
+    [],
+  );
+
+  useEffect(() => {
+    getDocument().then(res => {
+      setTransactions(res);
+    });
+  }, []);
 
   return (
     <FlatList
@@ -37,47 +51,47 @@ export default function TransactionsList() {
 }
 
 // create a transactions array with 5 transactions
-const transactions = [
-  {
-    id: '1',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-  {
-    id: '2',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-  {
-    id: '3',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-  {
-    id: '4',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-  {
-    id: '5',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-  {
-    id: '6',
-    title: 'Amazon',
-    description: 'Amazon purchase',
-    amount: '-$100',
-    date: '12/12/2020',
-  },
-];
+// const transactions = [
+//   {
+//     id: '1',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+//   {
+//     id: '2',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+//   {
+//     id: '3',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+//   {
+//     id: '4',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+//   {
+//     id: '5',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+//   {
+//     id: '6',
+//     title: 'Amazon',
+//     description: 'Amazon purchase',
+//     amount: '-$100',
+//     date: '12/12/2020',
+//   },
+// ];
