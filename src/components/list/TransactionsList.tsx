@@ -20,13 +20,15 @@ export default function TransactionsList() {
   }, []);
 
   return (
-    <>
+    <View style={{flex: 1}}>
       <FlatList
+        extraData={transactions}
         data={transactions}
         renderItem={({item}) => <TransactionCard transaction={item} />}
         keyExtractor={(item, index) =>
           item.id + 'transaction-list' + index?.toString()
         }
+        contentContainerStyle={{paddingVertical: 16}}
         ItemSeparatorComponent={() => <View style={{height: 16}} />}
         ListHeaderComponent={() => (
           <View>
@@ -50,7 +52,7 @@ export default function TransactionsList() {
         )}
         ListHeaderComponentStyle={{paddingBottom: 12}}
       />
-    </>
+    </View>
   );
 }
 

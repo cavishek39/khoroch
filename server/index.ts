@@ -6,6 +6,7 @@ import {
   DATABASE_ID,
 } from '../creds';
 import {transformData} from '../src/utils/helpers';
+import {Transaction} from '../src/types/transaction';
 
 const client = new Client();
 
@@ -15,9 +16,7 @@ const account = new Account(client);
 
 const databases = new Databases(client);
 
-async function createDocument(
-  data: Omit<Models.Document, keyof Models.Document>,
-) {
+async function createDocument(data: Transaction) {
   const response = await databases.createDocument(
     DATABASE_ID,
     COLLECTION_ID,
@@ -29,7 +28,9 @@ async function createDocument(
 
 async function getDocument() {
   try {
-    const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+    const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.orderDesc(''),
+    ]);
 
     const transformedData = transformData(response);
 

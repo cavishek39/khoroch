@@ -11,11 +11,11 @@ export default function TransactionCard({transaction}: TransactionProps) {
     <Card onPress={() => {}}>
       <View style={styles.leftContainer}>
         <Text style={styles.title}>{transaction.title}</Text>
-        <Text style={styles.description}>{transaction.description}</Text>
+        <Text style={styles.description}>{transaction?.description}</Text>
       </View>
       <View style={styles.rightContainer}>
         <Text style={styles.amount}>{transaction.amount}</Text>
-        <Text style={styles.date}>{transaction.date}</Text>
+        <Text style={styles.date}>{transaction.date?.toString()}</Text>
       </View>
     </Card>
   );
