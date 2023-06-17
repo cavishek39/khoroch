@@ -1,10 +1,8 @@
 import {FlatList, RefreshControl, Text, View} from 'react-native';
 import TransactionCard from '../TransactionCard';
 import {getDocument} from '../../../server';
-import {Query} from 'appwrite';
 import {useEffect, useState} from 'react';
 import {Transaction} from '../../types/transaction';
-import FloatingButton from '../FloatingButton';
 
 export default function TransactionsList() {
   // TODO: Query transactions from the database
@@ -15,10 +13,10 @@ export default function TransactionsList() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    handleRefresh();
+    fetchData();
   }, []);
 
-  const handleRefresh = () => {
+  const fetchData = () => {
     setRefreshing(true);
     getDocument()
       .then(res => {
@@ -36,10 +34,11 @@ export default function TransactionsList() {
   return (
     <View style={{flex: 1}}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         extraData={transactions}
         data={transactions}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
         }
         renderItem={({item}) => <TransactionCard transaction={item} />}
         keyExtractor={(item, index) =>

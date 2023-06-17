@@ -27,15 +27,14 @@ function App(): JSX.Element {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <ScrollView
+        {/* <ScrollView
           // contentInsetAdjustmentBehavior="automatic"
           nestedScrollEnabled
           style={{
             flex: 1,
             backgroundColor: 'white',
-          }}>
-          <HomeScreen />
-        </ScrollView>
+          }}></ScrollView> */}
+        <HomeScreen />
         <View
           style={{
             position: 'absolute',
