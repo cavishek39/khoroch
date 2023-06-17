@@ -1,4 +1,4 @@
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, RefreshControl, Text, View} from 'react-native';
 import TransactionCard from '../TransactionCard';
 import {getDocument} from '../../../server';
 import {Query} from 'appwrite';
@@ -12,18 +12,35 @@ export default function TransactionsList() {
   const [transactions, setTransactions] = useState<Transaction[] | undefined>(
     [],
   );
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getDocument().then(res => {
-      setTransactions(res);
-    });
+    handleRefresh();
   }, []);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    getDocument()
+      .then(res => {
+        setTransactions(res);
+      })
+      .catch(err => {
+        console.log(err);
+        setRefreshing(false);
+      })
+      .finally(() => {
+        setRefreshing(false);
+      });
+  };
 
   return (
     <View style={{flex: 1}}>
       <FlatList
         extraData={transactions}
         data={transactions}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
         renderItem={({item}) => <TransactionCard transaction={item} />}
         keyExtractor={(item, index) =>
           item.id + 'transaction-list' + index?.toString()
